@@ -1,22 +1,29 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "mul8_mainview.h"
+#include "ui_mul8_mainview.h"
 #include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string>
 
 using std::cout;
 using std::endl;
 
 QMap <QString, QList <QString> > map;
 
-MainWindow::MainWindow(QWidget *parent) :
+MUL8_MainView::MUL8_MainView(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MUL8_MainView)
 {
     ui->setupUi(this);
     ui->playMotionButton->setEnabled(false);
     populateMotionList();
+
+    initMotorLabels(); //Must be second
+    ui->motorPosRadioButton->setChecked(true);
+    setGUIMotorValues();
 }
 
-void MainWindow::populateMotionList()
+void MUL8_MainView::populateMotionList()
 {
     QList<QString> kick,stepleft,stepright,stand,turnleft,turnright,walking;
 
@@ -31,18 +38,18 @@ void MainWindow::populateMotionList()
 
 }
 
-MainWindow::~MainWindow()
+MUL8_MainView::~MUL8_MainView()
 {
     delete ui;
 
 }
 
-void MainWindow::on_removeMotionFromListButton_clicked()
+void MUL8_MainView::on_removeMotionFromListButton_clicked()
 {
    qDeleteAll(ui->currentMotionPlaybackList->selectedItems());
 }
 
-void MainWindow::on_addMotionToListButton_clicked()
+void MUL8_MainView::on_addMotionToListButton_clicked()
 {
     QList<QListWidgetItem *> items = ui->preExistingMotionList->selectedItems();
     for(QListWidgetItem * item : items)
@@ -55,7 +62,7 @@ void MainWindow::on_addMotionToListButton_clicked()
 
 }
 
-QList<QString> MainWindow::createQListString(QString key)
+QList<QString> MUL8_MainView::createQListString(QString key)
 {
     QList<QString> qs;
     qs << map[key].at(0).toUtf8().constData();
@@ -63,7 +70,7 @@ QList<QString> MainWindow::createQListString(QString key)
     return qs;
 }
 
-void MainWindow::on_checkBox_toggled(bool checked)
+void MUL8_MainView::on_checkBox_toggled(bool checked)
 {
     ui->playMotionButton->setEnabled(checked);
 
@@ -75,7 +82,7 @@ void MainWindow::on_checkBox_toggled(bool checked)
 
 }
 
-void MainWindow::on_playMotionButton_clicked()
+void MUL8_MainView::on_playMotionButton_clicked()
 {
     ui->checkBox->toggle();
 
@@ -100,7 +107,12 @@ void MainWindow::on_playMotionButton_clicked()
 
 }
 
-void MainWindow::on_clearListButton_clicked()
+void MUL8_MainView::on_clearListButton_clicked()
 {
     ui->currentMotionPlaybackList->clear();
 }
+
+
+
+// _______________________________
+

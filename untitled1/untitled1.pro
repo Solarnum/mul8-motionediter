@@ -13,10 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+    editwindow.cpp \
+    mul8_mainview.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    mul8_mainview.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    mul8_mainview.ui
 
 CONFIG += c++11
