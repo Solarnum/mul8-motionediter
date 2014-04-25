@@ -38,15 +38,47 @@ void MUL8_MainView::initMotorLabels(){
 void MUL8_MainView::setGUIMotorValues()
 {
     int i = 1;
-    if(ui->motorPosRadioButton->isChecked() == true){
-       for(i = 1; i<25; i++){
-           motorLabels[i]->setText("Pos");
-       }
+    if(ui->motorPosCheckBox->isChecked() == true && ui->motorTempCheckBox->isChecked() == false){
+        if(ui->degRadioButton->isChecked() == true){
+           for(i = 1; i<25; i++){
+               motorLabels[i]->setText("Pos Deg");
+           }
+        }
+        else{
+            for(i = 1; i<25; i++){
+                motorLabels[i]->setText("Pos Std");
+            }
+        }
     }
-    else if(ui->motorTempRadioButton->isChecked() == true){
+    else if(ui->motorTempCheckBox->isChecked() == true && ui->motorPosCheckBox->isChecked() == false){
         for(i = 1; i<25; i++){
             motorLabels[i]->setText("Temp");
         }
+    }
+    else if(ui->motorTempCheckBox->isChecked() == true && ui->motorPosCheckBox->isChecked() == true){
+        if(ui->degRadioButton->isChecked() == true){
+            for(i = 1; i<25; i++){
+                motorLabels[i]->setText("PosD and Temp");
+            }
+        }
+        else{
+            for(i = 1; i<25; i++){
+                motorLabels[i]->setText("PosS and Temp");
+            }
+        }
+    }
+    else{
+        if(ui->degRadioButton->isChecked() == true){
+           for(i = 1; i<25; i++){
+               motorLabels[i]->setText("Pos Deg");
+           }
+        }
+        else{
+            for(i = 1; i<25; i++){
+                motorLabels[i]->setText("Pos Std");
+            }
+        }
+        ui->motorPosCheckBox->setChecked(true);
     }
 }
 
@@ -70,25 +102,41 @@ void MUL8_MainView::on_nextStepButton_clicked()
 
 void MUL8_MainView::on_releaseLeftLegButton_clicked()
 {
+    int i = 1;
      cout << "Release Left Leg" << endl;
+     for(i = 1; i<12; i=i+2){
+         motorLabels[i]->setChecked(false);
+     }
      setGUIMotorValues();
 }
 
 void MUL8_MainView::on_engageLeftLegButton_clicked()
 {
+    int i = 1;
     cout << "Engage Left Leg" << endl;
+    for(i = 1; i<12; i=i+2){
+        motorLabels[i]->setChecked(true);
+    }
     setGUIMotorValues();
 }
 
 void MUL8_MainView::on_releaseRightLegButton_clicked()
 {
+    int i = 2;
     cout << "Release Right Leg" << endl;
+    for(i = 2; i<13; i=i+2){
+        motorLabels[i]->setChecked(false);
+    }
     setGUIMotorValues();
 }
 
 void MUL8_MainView::on_engageRightLegButton_clicked()
 {
+    int i = 2;
     cout << "Engage Right Leg" << endl;
+    for(i = 2; i<13; i=i+2){
+        motorLabels[i]->setChecked(true);
+    }
     setGUIMotorValues();
 }
 
@@ -96,26 +144,36 @@ void MUL8_MainView::on_engageMotorButton_clicked()
 {
     int motorNum = ui->engageMotorSpinBox->value();
     cout << "Engage Motor: " << motorNum << endl;
+     motorLabels[motorNum]->setChecked(true);
     setGUIMotorValues();
 }
 
 void MUL8_MainView::on_engageAllMotorButton_clicked()
 {
+    int i = 1;
     cout << "Engage All Motors" << endl;
+    for(i = 1; i<25; i++){
+        motorLabels[i]->setChecked(true);
+    }
     setGUIMotorValues();
 }
 
 void MUL8_MainView::on_releaseMotorButton_clicked()
 {
-    int motorNum = ui->engageMotorSpinBox->value();
+    int motorNum = ui->releaseMotorSpinBox->value();
      cout << "Release Motor: " << motorNum << endl;
+     motorLabels[motorNum]->setChecked(false);
      setGUIMotorValues();
 }
 
 void MUL8_MainView::on_releaseAllMotorButton_clicked()
 {
+    int i = 1;
     cout << "Release All Motors" << endl;
     setGUIMotorValues();
+    for(i = 1; i<25; i++){
+        motorLabels[i]->setChecked(false);
+    }
 }
 
 void MUL8_MainView::on_savePositionsButton_clicked()
@@ -125,19 +183,240 @@ void MUL8_MainView::on_savePositionsButton_clicked()
 }//End of Motor Commands
 
 //Start of Motor Values
-void MUL8_MainView::on_motorPosRadioButton_toggled(bool checked)
+void MUL8_MainView::on_motorPosCheckBox_clicked()
 {
-    if(checked == true){
-        cout << "Motor Pos Radio" << endl;
-    }
+   setGUIMotorValues();
+}
+
+void MUL8_MainView::on_motorTempCheckBox_clicked()
+{
+   setGUIMotorValues();
+}
+
+void MUL8_MainView::on_degRadioButton_clicked()
+{
     setGUIMotorValues();
 }
 
-void MUL8_MainView::on_motorTempRadioButton_toggled(bool checked)
+void MUL8_MainView::on_posRadioButton_clicked()
 {
-    if(checked == true){
-        cout << "Motor Temp Radio" << endl;
-    }
     setGUIMotorValues();
 }//End of Motor Values
 
+
+//Start of Robot Motor Check
+void MUL8_MainView::on_m1Label_clicked(bool checked)
+{
+    //motorLabels[1]->setChecked(checked);
+    if(checked == true)
+        std::cout << "1 en" << endl;
+    else
+        std::cout << "1 dis" << endl;
+}
+
+void MUL8_MainView::on_m2Label_clicked(bool checked)
+{
+    //motorLabels[2]->setChecked(checked);
+    if(checked == true)
+        std::cout << "2 en" << endl;
+    else
+        std::cout << "2 dis" << endl;
+}
+
+void MUL8_MainView::on_m3Label_clicked(bool checked)
+{
+    //motorLabels[3]->setChecked(checked);
+    if(checked == true)
+        std::cout << "3 en" << endl;
+    else
+        std::cout << "3 dis" << endl;
+}
+
+void MUL8_MainView::on_m4Label_clicked(bool checked)
+{
+    //motorLabels[4]->setChecked(checked);
+    if(checked == true)
+        std::cout << "4 en" << endl;
+    else
+        std::cout << "4 dis" << endl;
+}
+
+void MUL8_MainView::on_m5Label_clicked(bool checked)
+{
+    //motorLabels[5]->setChecked(checked);
+    if(checked == true)
+        std::cout << "5 en" << endl;
+    else
+        std::cout << "5 dis" << endl;
+}
+
+void MUL8_MainView::on_m6Label_clicked(bool checked)
+{
+    //motorLabels[6]->setChecked(checked);
+    if(checked == true)
+        std::cout << "6 en" << endl;
+    else
+        std::cout << "6 dis" << endl;
+}
+
+void MUL8_MainView::on_m7Label_clicked(bool checked)
+{
+    //motorLabels[7]->setChecked(checked);
+    if(checked == true)
+        std::cout << "7 en" << endl;
+    else
+        std::cout << "7 dis" << endl;
+}
+
+void MUL8_MainView::on_m8Label_clicked(bool checked)
+{
+    //motorLabels[8]->setChecked(checked);
+    if(checked == true)
+        std::cout << "8 en" << endl;
+    else
+        std::cout << "8 dis" << endl;
+}
+
+void MUL8_MainView::on_m9Label_clicked(bool checked)
+{
+    //motorLabels[9]->setChecked(checked);
+    if(checked == true)
+        std::cout << "9 en" << endl;
+    else
+        std::cout << "9 dis" << endl;
+}
+
+void MUL8_MainView::on_m10Label_clicked(bool checked)
+{
+    //motorLabels[10]->setChecked(checked);
+    if(checked == true)
+        std::cout << "10 en" << endl;
+    else
+        std::cout << "10 dis" << endl;
+}
+
+void MUL8_MainView::on_m11Label_clicked(bool checked)
+{
+    //motorLabels[11]->setChecked(checked);
+    if(checked == true)
+        std::cout << "11 en" << endl;
+    else
+        std::cout << "11 dis" << endl;
+}
+
+void MUL8_MainView::on_m12Label_clicked(bool checked)
+{
+    //motorLabels[12]->setChecked(checked);
+    if(checked == true)
+        std::cout << "12 en" << endl;
+    else
+        std::cout << "12 dis" << endl;
+}
+
+void MUL8_MainView::on_m13Label_clicked(bool checked)
+{
+    //motorLabels[13]->setChecked(checked);
+    if(checked == true)
+        std::cout << "13 en" << endl;
+    else
+        std::cout << "13 dis" << endl;
+}
+
+void MUL8_MainView::on_m14Label_clicked(bool checked)
+{
+    //motorLabels[14]->setChecked(checked);
+    if(checked == true)
+        std::cout << "14 en" << endl;
+    else
+        std::cout << "14 dis" << endl;
+}
+
+void MUL8_MainView::on_m15Label_clicked(bool checked)
+{
+    //motorLabels[15]->setChecked(checked);
+    if(checked == true)
+        std::cout << "15 en" << endl;
+    else
+        std::cout << "15 dis" << endl;
+}
+
+void MUL8_MainView::on_m16Label_clicked(bool checked)
+{
+    //motorLabels[16]->setChecked(checked);
+    if(checked == true)
+        std::cout << "16 en" << endl;
+    else
+        std::cout << "16 dis" << endl;
+}
+
+void MUL8_MainView::on_m17Label_clicked(bool checked)
+{
+    //motorLabels[17]->setChecked(checked);
+    if(checked == true)
+        std::cout << "17 en" << endl;
+    else
+        std::cout << "17 dis" << endl;
+}
+
+void MUL8_MainView::on_m18Label_clicked(bool checked)
+{
+    //motorLabels[18]->setChecked(checked);
+    if(checked == true)
+        std::cout << "18 en" << endl;
+    else
+        std::cout << "18 dis" << endl;
+}
+
+void MUL8_MainView::on_m19Label_clicked(bool checked)
+{
+    //motorLabels[19]->setChecked(checked);
+    if(checked == true)
+        std::cout << "19 en" << endl;
+    else
+        std::cout << "19 dis" << endl;
+}
+
+void MUL8_MainView::on_m20Label_clicked(bool checked)
+{
+    //motorLabels[20]->setChecked(checked);
+    if(checked == true)
+        std::cout << "20 en" << endl;
+    else
+        std::cout << "20 dis" << endl;
+}
+
+void MUL8_MainView::on_m21Label_clicked(bool checked)
+{
+    //motorLabels[21]->setChecked(checked);
+    if(checked == true)
+        std::cout << "21 en" << endl;
+    else
+        std::cout << "21 dis" << endl;
+}
+
+void MUL8_MainView::on_m22Label_clicked(bool checked)
+{
+    //motorLabels[22]->setChecked(checked);
+    if(checked == true)
+        std::cout << "22 en" << endl;
+    else
+        std::cout << "22 dis" << endl;
+}
+
+void MUL8_MainView::on_m23Label_clicked(bool checked)
+{
+    //motorLabels[23]->setChecked(checked);
+    if(checked == true)
+        std::cout << "23 en" << endl;
+    else
+        std::cout << "23 dis" << endl;
+}
+
+void MUL8_MainView::on_m24Label_clicked(bool checked)
+{
+    //motorLabels[24]->setChecked(checked);
+    if(checked == true)
+        std::cout << "24 en" << endl;
+    else
+        std::cout << "24 dis" << endl;
+}

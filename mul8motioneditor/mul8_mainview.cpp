@@ -19,7 +19,8 @@ MUL8_MainView::MUL8_MainView(QWidget *parent) :
     populateMotionList();
 
     initMotorLabels(); //Must be second
-    ui->motorPosRadioButton->setChecked(true);
+    ui->motorPosCheckBox->setChecked(true);
+    ui->degRadioButton->setChecked(true);
     setGUIMotorValues();
 }
 
@@ -51,14 +52,14 @@ void MUL8_MainView::on_removeMotionFromListButton_clicked()
 
 void MUL8_MainView::on_addMotionToListButton_clicked()
 {
-    QList<QListWidgetItem *> items = ui->preExistingMotionList->selectedItems();
+   /* QList<QListWidgetItem *> items = ui->preExistingMotionList->selectedItems();
     for(QListWidgetItem * item : items)
     {
         QString key = item->text();
         QMap<QString, QList <QString> > temp;
         temp[key.toUtf8()] = createQListString(key);
         ui->currentMotionPlaybackList->addItems(temp.keys());
-    }
+    }*/
 
 }
 
@@ -115,4 +116,5 @@ void MUL8_MainView::on_clearListButton_clicked()
 
 
 // _______________________________
+
 

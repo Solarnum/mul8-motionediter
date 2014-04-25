@@ -52,18 +52,72 @@ private slots:
 
         void on_savePositionsButton_clicked();
 
-        void on_motorPosRadioButton_toggled(bool checked);
-
-        void on_motorTempRadioButton_toggled(bool checked);
 
         void setGUIMotorValues();
 
         void initMotorLabels();
 
 
+        void on_motorPosCheckBox_clicked();
+
+        void on_motorTempCheckBox_clicked();
+
+        void on_degRadioButton_clicked();
+
+        void on_posRadioButton_clicked();
+
+        void on_m1Label_clicked(bool checked);
+
+        void on_m2Label_clicked(bool checked);
+
+        void on_m3Label_clicked(bool checked);
+
+        void on_m4Label_clicked(bool checked);
+
+        void on_m5Label_clicked(bool checked);
+
+        void on_m6Label_clicked(bool checked);
+
+        void on_m7Label_clicked(bool checked);
+
+        void on_m8Label_clicked(bool checked);
+
+        void on_m9Label_clicked(bool checked);
+
+        void on_m10Label_clicked(bool checked);
+
+        void on_m11Label_clicked(bool checked);
+
+        void on_m12Label_clicked(bool checked);
+
+        void on_m13Label_clicked(bool checked);
+
+        void on_m14Label_clicked(bool checked);
+
+        void on_m15Label_clicked(bool checked);
+
+        void on_m16Label_clicked(bool checked);
+
+        void on_m17Label_clicked(bool checked);
+
+        void on_m18Label_clicked(bool checked);
+
+        void on_m19Label_clicked(bool checked);
+
+        void on_m20Label_clicked(bool checked);
+
+        void on_m21Label_clicked(bool checked);
+
+        void on_m22Label_clicked(bool checked);
+
+        void on_m23Label_clicked(bool checked);
+
+        void on_m24Label_clicked(bool checked);
+
+
 private:
     Ui::MUL8_MainView *ui;
-    QLabel *motorLabels[25];
+    QCheckBox *motorLabels[25];
 };
 
 
