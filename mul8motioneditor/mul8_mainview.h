@@ -3,6 +3,17 @@
 
 #include <QMainWindow>
 #include "ui_mul8_mainview.h"
+#include <iostream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string>
+#include <QFile>
+#include <QTextStream>
+
+
+using std::cout;
+using std::endl;
+using std::string;
 
 namespace Ui {
 class MUL8_MainView;
@@ -28,96 +39,73 @@ private slots:
 
     void on_playMotionButton_clicked();
 
+    bool loadMotionFile(QString fname);
+
     QList<QString> createQListString(QString key);
 
     void on_clearListButton_clicked();
 
-     void on_nextStepButton_clicked();
+    void on_nextStepButton_clicked();
 
-     void on_releaseLeftLegButton_clicked();
+    void on_releaseLeftLegButton_clicked();
 
-        void on_engageLeftLegButton_clicked();
+    void on_engageLeftLegButton_clicked();
 
-        void on_releaseRightLegButton_clicked();
+    void on_releaseRightLegButton_clicked();
 
-        void on_engageRightLegButton_clicked();
+    void on_engageRightLegButton_clicked();
 
-        void on_engageMotorButton_clicked();
+    void on_engageMotorButton_clicked();
 
-        void on_engageAllMotorButton_clicked();
+    void on_engageAllMotorButton_clicked();
 
-        void on_releaseMotorButton_clicked();
+    void on_releaseMotorButton_clicked();
 
-        void on_releaseAllMotorButton_clicked();
+    void on_releaseAllMotorButton_clicked();
 
-        void on_savePositionsButton_clicked();
+    void on_savePositionsButton_clicked();
 
+    void on_motorPosRadioButton_toggled(bool checked);
 
-        void setGUIMotorValues();
+    void on_motorTempRadioButton_toggled(bool checked);
 
-        void initMotorLabels();
+    void setGUIMotorValues();
 
+    void initMotorLabels();
 
-        void on_motorPosCheckBox_clicked();
+    void initMotorLabels1();
 
-        void on_motorTempCheckBox_clicked();
+    void on_nextStepButton_3_clicked();
 
-        void on_degRadioButton_clicked();
+    void on_releaseLeftLegButton_3_clicked();
 
-        void on_posRadioButton_clicked();
+    void on_begin_clicked();
 
-        void on_m1Label_clicked(bool checked);
+    void on_engageLeftLegButton_3_clicked();
 
-        void on_m2Label_clicked(bool checked);
+    void on_releaseRightLegButton_3_clicked();
 
-        void on_m3Label_clicked(bool checked);
+    void on_engageRightLegButton_3_clicked();
 
-        void on_m4Label_clicked(bool checked);
+    void on_engageMotorButton_3_clicked();
 
-        void on_m5Label_clicked(bool checked);
+    void on_engageAllMotorButton_3_clicked();
 
-        void on_m6Label_clicked(bool checked);
+    void on_releaseMotorButton_3_clicked();
 
-        void on_m7Label_clicked(bool checked);
+    void on_releaseAllMotorButton_3_clicked();
 
-        void on_m8Label_clicked(bool checked);
+    void on_savePositionsButton_3_clicked();
 
-        void on_m9Label_clicked(bool checked);
+    void on_motorPosRadioButton_3_toggled(bool checked);
 
-        void on_m10Label_clicked(bool checked);
+    void on_motorTempRadioButton_3_toggled(bool checked);
 
-        void on_m11Label_clicked(bool checked);
-
-        void on_m12Label_clicked(bool checked);
-
-        void on_m13Label_clicked(bool checked);
-
-        void on_m14Label_clicked(bool checked);
-
-        void on_m15Label_clicked(bool checked);
-
-        void on_m16Label_clicked(bool checked);
-
-        void on_m17Label_clicked(bool checked);
-
-        void on_m18Label_clicked(bool checked);
-
-        void on_m19Label_clicked(bool checked);
-
-        void on_m20Label_clicked(bool checked);
-
-        void on_m21Label_clicked(bool checked);
-
-        void on_m22Label_clicked(bool checked);
-
-        void on_m23Label_clicked(bool checked);
-
-        void on_m24Label_clicked(bool checked);
-
+    void setGUIMotorValues1();
 
 private:
     Ui::MUL8_MainView *ui;
-    QCheckBox *motorLabels[25];
+    QLabel *motorLabels[25];
 };
 
 

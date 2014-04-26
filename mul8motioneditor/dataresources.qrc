@@ -1,0 +1,5 @@
+<RCC>
+    <qresource lang="en" prefix="/data">
+        <file alias="movements.dat">movements.dat</file>
+    </qresource>
+</RCC>

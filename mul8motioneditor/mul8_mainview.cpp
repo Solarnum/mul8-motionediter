@@ -1,12 +1,5 @@
 #include "mul8_mainview.h"
 #include "ui_mul8_mainview.h"
-#include <iostream>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string>
-
-using std::cout;
-using std::endl;
 
 QMap <QString, QList <QString> > map;
 
@@ -16,11 +9,14 @@ MUL8_MainView::MUL8_MainView(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->playMotionButton->setEnabled(false);
-    populateMotionList();
+    if(loadMotionFile(":/data/movements.dat"))
+    {
+        populateMotionList();
+    }
+
 
     initMotorLabels(); //Must be second
-    ui->motorPosCheckBox->setChecked(true);
-    ui->degRadioButton->setChecked(true);
+    ui->motorPosRadioButton->setChecked(true);
     setGUIMotorValues();
 }
 
@@ -28,17 +24,32 @@ void MUL8_MainView::populateMotionList()
 {
     QList<QString> kick,stepleft,stepright,stand,turnleft,turnright,walking;
 
-    map["Walk"] = walking<< "W";
-    map["Turn Left"] = turnleft << "Q";
-    map["Turn Right"] = turnright <<"E";
-    map["Stand"] = stand << "S";
-    map["Kick"] = kick << "K";
-    map["Step Left"] = stepleft << "A";
-    map["Step Right"] = stepright << "D";
     ui->preExistingMotionList->addItems(map.keys());
 
 }
 
+bool MUL8_MainView::loadMotionFile(QString fname)
+{
+    QFile inputFile(fname);
+    if (inputFile.open(QIODevice::ReadOnly))
+    {
+        QTextStream in(&inputFile);
+        while ( !in.atEnd() )
+        {
+            QStringList line = in.readLine().split(":");
+            QList<QString> c;
+            map[line[0]] = c << line[1];
+            cout << line[0].toStdString() << endl;
+        }
+        inputFile.close();
+    }
+    else
+    {
+        cout << " File Not Found " << endl;
+        return false;
+    }
+    return true;
+}
 MUL8_MainView::~MUL8_MainView()
 {
     delete ui;
@@ -47,19 +58,19 @@ MUL8_MainView::~MUL8_MainView()
 
 void MUL8_MainView::on_removeMotionFromListButton_clicked()
 {
-   qDeleteAll(ui->currentMotionPlaybackList->selectedItems());
+    qDeleteAll(ui->currentMotionPlaybackList->selectedItems());
 }
 
 void MUL8_MainView::on_addMotionToListButton_clicked()
 {
-   /* QList<QListWidgetItem *> items = ui->preExistingMotionList->selectedItems();
+    QList<QListWidgetItem *> items = ui->preExistingMotionList->selectedItems();
     for(QListWidgetItem * item : items)
     {
         QString key = item->text();
         QMap<QString, QList <QString> > temp;
         temp[key.toUtf8()] = createQListString(key);
         ui->currentMotionPlaybackList->addItems(temp.keys());
-    }*/
+    }
 
 }
 
@@ -116,5 +127,4 @@ void MUL8_MainView::on_clearListButton_clicked()
 
 
 // _______________________________
-
 
