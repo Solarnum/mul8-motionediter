@@ -10,7 +10,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = mul8motioneditor
 TEMPLATE = app
-
+RC_FILE = icon.rc
 
 SOURCES += main.cpp\
     editwindow.cpp \
@@ -26,7 +26,8 @@ FORMS    += \
 CONFIG += c++11
 
 OTHER_FILES += \
-    movements.dat
+    movements.dat \
+    icon.rc
 
 RESOURCES += \
     dataresources.qrc
